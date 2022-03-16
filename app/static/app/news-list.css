@@ -1,0 +1,29 @@
+.title {
+    margin-bottom: 2rem;
+}
+
+.main-container {
+    grid-template-columns: repeat(5, 1fr) !important;
+    grid-gap: 2rem !important;
+}
+
+.cards-container {
+    grid-column: span 3 !important;
+}
+
+.card img {
+    grid-column: span 3 !important;
+}
+
+.card > div {
+    grid-column: span 4 !important;
+}
+
+aside {
+    grid-column: span 2 !important;
+}
+
+#side-news .side-title {
+    border-radius: 5px;
+    margin-bottom: 2rem;
+}
