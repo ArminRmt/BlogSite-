@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/2185f713f9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{%  static  'app/main.css'  %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{{ form.media }}
+
+
+<style>
+    body {
+        background-image: url(" {% static  'app/img4.jpg' %}");
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        background-size: 100% 100%;
+    }
+</style>
+
+
+
+</head>
+
+
+
+<body>
+    
+
+
+       <!-- main nav bar-->
+
+       <nav id="main-nav">
+        <div class="container">
+            <div class="nav-title">
+                <span class="logo"><img style="width: 50px;; height:50px " src=" {% static  'app/logoo.jpg' %}"></span>
+                <span class="main-title">خبرفارسی</span>
+            </div>
+            <ul>
+                <li><a class="active" href="{%  url   'home'  %}"><i class="fas fa-home"></i> صفحه اصلی</a></li>
+                <li><a href="{%  url   'list_akhbar'  %}"><i class="fas fa-bullhorn"></i> لیست اخبار</a></li>
+                <li><a href="{%  url   'varzeshi'  %}"><i class="fas fa-futbol"></i> ورزشی</a></li>
+                <li><a href="{%  url   'siasi'  %}"><i class="fas fa-users"></i> سیاسی</a></li>
+                <li><a href="{%  url   'elmi'  %}"><i class="fas fa-microscope"></i> علمی</a></li>
+                <li><a href="{%  url   'eghtesadi'  %}"><i class="fas fa-coins"></i> اقتصادی</a></li>
+                <li><a href="{%  url   'signin'  %}"><i class="fas fa-user-circle"></i>ورود</a></li>
+
+
+            </ul>
+            <div class="nav-left-side">
+                <div class="search-box">
+                    <form>
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="search" placeholder="جستجو">
+                    </form>
+                </div>
+                <a href="{%  url   'signup'  %}" class="nav-left-icon" title="ایجاد حساب کاربری"><i
+                        class="fas fa-user-circle"></i></a>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+    <h1 style="text-align:center;color:#ffa500">create post</h1>
+    <br>
+
+    <div class="form-group">
+        <form method ="post" enctype="multipart/form-data"> 
+            <div class="mb-3">
+
+                {% csrf_token %}    
+                {{ form.as_p }}     
+                <button type="submit" class="btn btn-primary btn-lg btn-block">post</button>
+
+            </div>
+
+        </form>
+    </div>
+
+
+
+
+
+</body>
+</html>

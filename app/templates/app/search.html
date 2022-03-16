@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/2185f713f9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{%  static  'app/main.css'  %}">
+
+
+    <style>
+        body {
+            background-image: url(" {% static  'app/img4.jpg' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            background-size: 100% 100%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+    <!-- main nav bar-->
+
+    <nav id="main-nav">
+        <div class="container">
+            <div class="nav-title">
+                <span class="logo"><a href="{%  url   'home'  %}"><img style="width: 50px;; height:50px "
+                            src=" {% static  'app/logoo.jpg' %}"></a></span>
+                <span class="main-title">خبرفارسی</span>
+            </div>
+            <ul>
+                <li><a class="active" href="{%  url   'home'  %}"><i class="fas fa-home"></i> صفحه اصلی</a></li>
+                <li><a href="{%  url   'list_akhbar'  %}"><i class="fas fa-bullhorn"></i> لیست اخبار</a></li>
+                <li><a href="{%  url   'varzeshi'  %}"><i class="fas fa-futbol"></i> ورزشی</a></li>
+                <li><a href="{%  url   'siasi'  %}"><i class="fas fa-users"></i> سیاسی</a></li>
+                <li><a href="{%  url   'elmi'  %}"><i class="fas fa-microscope"></i> علمی</a></li>
+                <li><a href="{%  url   'eghtesadi'  %}"><i class="fas fa-coins"></i> اقتصادی</a></li>
+                <li><a href="{%  url   'signin'  %}"><i class="fas fa-user-circle"></i>ورود</a></li>
+
+            </ul>
+            <div class="nav-left-side">
+                <div class="search-box">
+
+                    <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search' %}">
+                        <input class="form-control mr-sm-2" type="search" name="search">
+                        <button class="btn btn btn-outline-info my-2 my-sm-0" type="submit"> Search </button>
+                    </form>
+
+                </div>
+                <a href="{%  url   'signup'  %}" class="nav-left-icon" title="ایجاد حساب کاربری"><i
+                        class="fas fa-user-circle"></i></a>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <!-- main-->
+
+
+    <main>
+        <div class="container">
+            <div class="main-container">
+                <section class="cards-container" style="grid-column: span 8;
+                display: flex;
+                flex-direction: column;">
+
+
+
+
+
+                    {% for post in all_search_results %}
+
+                            <article class="card">
+
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}">
+                                {% endif %}
+
+                                <div>
+                                    <div class="card-header">
+                                        <h3>{{ post.title }}</h3>
+                                        <a href="#" class="category">{{ post.title2}}</a>
+                                    </div>
+                                    <p>{{ post.text }}</p>
+                                    <p>{{ post.author }}</p>
+                                    <p>{{ post.viewers }}</p>
+
+                                    <div class="card-header">
+                                        <a href="{% url 'update_post' post.id %}">آپدیت پست</a>
+                                        <a href="{% url 'delete_post' post.id %}">دیلیت پست</a>
+                                    </div><br>
+
+                                    <div class="card-header">
+                                        <a href="{% url 'post_detail' post.id %}" class="btn">ادامه مطلب</a>
+                                        <p>{{ post.created_date }}</p>
+                                    </div>
+
+
+                                </div>
+
+                            </article>
+                            
+                            {% empty %}
+                            <h2>پستی وجود ندارد</h2>
+
+                    {% endfor %}
+
+
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

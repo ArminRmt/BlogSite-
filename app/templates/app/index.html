@@ -1,0 +1,303 @@
+{% load static %}
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/2185f713f9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{%  static  'app/main.css'  %}">
+    <link rel="stylesheet" href="{%  static  'app/main_slide.css'  %}">
+
+
+</head>
+
+<body>
+
+    <script src="myScript.js"></script>
+
+
+    <!-- main nav bar-->
+
+    <nav id="main-nav">
+        <div class="container">
+            <div class="nav-title">
+                <span class="logo"><img style="width: 50px;; height:50px " src=" {% static  'app/logoo.jpg' %}"></span>
+                <span class="main-title">خبرفارسی</span>
+            </div>
+            <ul>
+                <li><a class="active" href="{%  url   'home'  %}"><i class="fas fa-home"></i> صفحه اصلی</a></li>
+                <li><a href="{%  url   'list_akhbar'  %}"><i class="fas fa-bullhorn"></i> لیست اخبار</a></li>
+                <li><a href="{%  url   'varzeshi'  %}"><i class="fas fa-futbol"></i> ورزشی</a></li>
+                <li><a href="{%  url   'siasi'  %}"><i class="fas fa-users"></i> سیاسی</a></li>
+                <li><a href="{%  url   'elmi'  %}"><i class="fas fa-microscope"></i> علمی</a></li>
+                <li><a href="{%  url   'eghtesadi'  %}"><i class="fas fa-coins"></i> اقتصادی</a></li>
+                <li><a href="{%  url   'signin'  %}"><i class="fas fa-user-circle"></i>ورود</a></li>
+                <li><a href="{%  url   'create_post'  %}">پست جدید</a></li>
+
+
+
+            </ul>
+            <div class="nav-left-side">
+                <div class="search-box">
+                    <form>
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="search" placeholder="جستجو">
+                    </form>
+                </div>
+                <a href="{%  url   'signout'  %}" class="nav-left-icon" title="خارج شدن از حساب کاربری"><i
+                        class="fas fa-user-circle"></i></a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- header-->
+
+
+    <header>
+
+
+        <!-- slider -->
+
+
+        <div class="c">
+
+            <input type="radio" name="a" id="cr-1" checked>
+            <label for="cr-1" style="--hue: 32"></label>
+            <div class="ci" style="--z: 4">
+                <h2 class="ch" style = "--h: 32; --s: 80%; --l: 90%; color:#DE3163">اسلاید اول</h2>
+                <img src="{{ sliders_pic.image.url }}" alt="Snow on leafs">
+            </div>
+
+            <input type="radio" name="a" id="cr-2">
+            <label for="cr-2" style="--hue: 82"></label>
+            <div class="ci" style="--z: 3">
+                <h2 class="ch" style="--h: 82; --s: 80%; --l: 90%; color:#DE3163">اسلاید دوم</h2>
+                <img src="{{ sliders_pic1.image.url }}" alt="Trees">
+            </div>
+
+            <input type="radio" name="a" id="cr-3">
+            <label for="cr-3" style="--hue: 40"></label>
+            <div class="ci" style="--z: 2">
+                <h2 class="ch" style="--h: 40; --s: 100%; --l: 89%; color:#DE3163">اسلاید سوم</h2>
+                <img src="{{ sliders_pic2.image.url }}" alt="Mountains and houses">
+            </div>
+
+
+
+        </div>
+
+
+
+    </header>
+
+
+
+
+
+    <!-- main-->
+
+
+    <main>
+        <div class="container">
+            <div class="main-container">
+                <section class="cards-container">
+
+
+
+                    {% for post in posts %}
+                    <article class="card">
+
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}">
+                        {% endif %}
+
+                        <div>
+                            <div class="card-header">
+                                <h3>{{ post.title }}</h3>
+                                <a href="#" class="category">{{ post.title2}}</a>
+                            </div>
+                            <p>{{ post.text }}</p>
+                            <p>{{ post.author }}</p>
+                            <p>{{ post.viewers }}</p>
+
+                            <div class="card-header">
+                                <a href="{% url 'update_post' post.id %}">آپدیت پست</a>
+                                <a href="{% url 'delete_post' post.id %}">دیلیت پست</a>
+                            </div><br>
+
+                            <div class="card-header">
+                                <a href="{% url 'post_detail' post.id %}" class="btn">ادامه مطلب</a>
+                                <p>{{ post.created_date }}</p>
+                            </div>
+
+
+                        </div>
+
+
+                    </article>
+                    {% endfor %}
+
+
+                    
+    <!-- pagination -->
+
+
+    {% if posts.has_other_pages %}
+
+    <div style="display:flex; justify-content: center;">
+        <div class="center">
+            <nav aria-label="Page navigation conatiner"></nav>
+            <ul class="pagination justify-content-center">
+                {% if posts.has_previous %}
+                <li><a href="?page={{ posts.previous_page_number }}" class="page-link"> صفحه قبل &raquo; </a></li>
+                {% endif %}
+                {% if posts.has_next %}
+                <li><a href="?page={{ posts.next_page_number }}" class="page-link">&laquo; صفحه بعد </a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    {% endif %}<br>
+
+
+                </section>
+
+
+
+                <aside>
+
+                    <section id="side-news">
+                        <h3 class="side-title" style="background: #ee9ca7;  
+                        background: -webkit-linear-gradient(to right, #ffdde1, #ee9ca7); 
+                        background: linear-gradient(to right, #ffdde1, #ee9ca7);">بیشترین بازدید</h3>
+
+                        <div class="side-news-container">
+
+
+                            {% for post in most_visited %}
+
+                            <article class="card">
+
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}">
+                                {% endif %}
+
+                                <div>
+                                    <div class="card-header">
+                                        <h3>{{ post.title }}</h3>
+                                        <a href="#" class="category">{{ post.title2 }}</a>
+                                    </div>
+                                    <p>{{ post.text }}</p>
+                                    <a href="{% url 'post_detail' post.id %}" class="btn">ادامه مطلب</a>
+                                </div>
+
+                            </article>
+                            {% endfor %}
+
+                        </div>
+                    </section>
+
+
+                    <section id="side-news">
+                        <h3 class="side-title" style="background: #ee9ca7;  
+                        background: -webkit-linear-gradient(to right, #ffdde1, #ee9ca7); 
+                        background: linear-gradient(to right, #ffdde1, #ee9ca7);">اخیر</h3>
+                        <div class="side-news-container">
+
+
+                            {% for post in most_recent %}
+
+                            <article class="card">
+
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}">
+                                {% endif %}
+
+                                <div>
+                                    <div class="card-header">
+                                        <h3>{{ post.title }}</h3>
+                                        <a href="#" class="category">{{ post.title2 }}</a>
+                                    </div>
+                                    <p>{{ post.text }}</p>
+                                    <a href="{% url 'post_detail' post.id %}" class="btn">ادامه مطلب</a>
+                                </div>
+
+                            </article>
+                            {% endfor %}
+
+                        </div>
+                    </section>
+
+
+
+
+
+                </aside>
+            </div>
+        </div>
+    </main>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- FOOTER  -->
+
+    <div class="footer">
+        <div class="contain">
+            <div class="col social" style="margin-top:15px">
+                <img style="width: 120px; height:120px " src="{% static  'app/logoo.jpg' %}">
+
+            </div>
+            <div class="col">
+                <h3 style="color: #FF7F50">راه های ارتباطی</h3>
+                <ul>
+                    <li>اینستاگرام</li>
+                    <li>تلگرام</li>
+                    <li>واتسپ</li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3 style="color: #FF7F50">درباره ما</h3>
+                <ul>
+                    <li>کارکنان</li>
+                    <li>گزارشگران</li>
+                    <li>مدیران </li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3 style="color: #FF7F50">دسترسی سریع</h3>
+                <ul>
+                    <li>اخبار سیاسی</li>
+                    <li>اخبار ورزشی</li>
+                    <li>اخبار اقتصادی</li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

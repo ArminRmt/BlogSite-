@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{%  static  'app/main.css'  %}">
+    <link rel="stylesheet" href="{%  static  'app/main5.css'  %}">
+
+    <style>
+      body {
+          background-image: url(" {% static  'app/img4.jpg' %}");
+          background-repeat: no-repeat;
+          background-attachment: fixed; 
+          background-size: 100% 100%;
+      }
+  </style>
+
+</head>
+
+
+
+  <form method="post" action="{%  url   'signin'  %}" class="mb-2">
+    {% csrf_token %}
+
+    <div class="container">
+        <h1>ورود</h1>
+        <hr>
+
+        <label  for="name"><b>نام</b></label>
+        <input class="s" type="text" placeholder="نام خود  را وارد کنید" name="username" required>
+
+        <!-- <label  for="email"><b>ایمیل</b></label>
+        <input class="s" type="text" placeholder="ایمیل را وارد کنید" name="email" required>
+   -->
+        <label  for="psw"><b>رمز عبور</b></label>
+        <input class="s" type="password" placeholder="رمز عبور را وارد کنید" name="pass1" required>
+
+
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+        </div>
+        {% endfor %}
+        
+        </div>
+
+        <div class="clearfix">
+          <button type="submit" class="signupbtn">ورود</button>
+        </div>
+
+        <div class="flex-container">
+          <div><a href="{%  url   'signup'  %}">ثبت نام</a></div>
+          <div><a href="{%  url   'home'  %}">صفحه اصلی</a></div>
+        </div>
+        
+      </div>
+    </form>
+    
+</body>
+</html>

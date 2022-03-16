@@ -1,0 +1,70 @@
+{% load static %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="{%  static  'app/main.css'  %}">
+        <link rel="stylesheet" href="{%  static  'app/main4.css'  %}">
+    </head>
+    <body style="background: linear-gradient(90deg, #D3959B 0%,  #BFE6BA 100%);">
+
+
+
+
+
+
+
+
+
+      <form method="post" action="{%  url   'signup'  %}">
+        {% csrf_token %}
+         <div class="container">
+            <h1>ثبت نام</h1>
+            <hr>
+
+            <label class="s" for="name"><b>نام</b></label>
+            <input class="s2" type="text" placeholder="نام خود  را وارد کنید" name="username" required>
+
+            <label class="s" for="email"><b>ایمیل</b></label>
+            <input class="s2" type="text" placeholder="ایمیل را وارد کنید" name="email" required>
+      
+            <label class="s" for="psw"><b>رمز عبور</b></label>
+            <input class="s2" type="password" placeholder="رمز عبور را وارد کنید" name="pass1" required>
+      
+            <label class="s"  for="password"><b>رمز عبور</b></label>
+            <input class="s2" type="password" placeholder="رمز عبور  را تکرار کنید" name="pass2" required>
+            <br><br>
+         
+            <div class="clearfix">
+              <button type="submit" class="signupbtn">ثبت نام</button>
+            </div>
+
+            <div class="flex-container">
+
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  <strong>Message:</strong> {{ message }}
+              </div>
+              {% endfor %}
+              
+            </div>
+
+            <div class="flex-container">
+              <div><a href="{%  url   'home'  %}">صفحه اصلی</a></div>
+              <div><label >
+                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> با قوانین موافقت می کنم
+              </label></div>
+              
+            </div>
+
+ 
+
+          </div>
+        </form>
+        
+    </body>
+    </html>

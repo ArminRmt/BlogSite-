@@ -1,0 +1,188 @@
+{% load static %}
+
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/2185f713f9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{%  static  'app/main.css'  %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+
+
+    <!-- main nav bar-->
+
+    <nav id="main-nav">
+        <div class="container">
+            <div class="nav-title">
+                <span class="logo"><img style="width: 50px;; height:50px " src=" {% static  'app/logoo.jpg' %}"></span>
+                <span class="main-title">خبرفارسی</span>
+            </div>
+            <ul>
+                <li><a class="active" href="{%  url   'home'  %}"><i class="fas fa-home"></i> صفحه اصلی</a></li>
+                <li><a href="{%  url   'list_akhbar'  %}"><i class="fas fa-bullhorn"></i> لیست اخبار</a></li>
+                <li><a href="{%  url   'varzeshi'  %}"><i class="fas fa-futbol"></i> ورزشی</a></li>
+                <li><a href="{%  url   'siasi'  %}"><i class="fas fa-users"></i> سیاسی</a></li>
+                <li><a href="{%  url   'elmi'  %}"><i class="fas fa-microscope"></i> علمی</a></li>
+                <li><a href="{%  url   'eghtesadi'  %}"><i class="fas fa-coins"></i> اقتصادی</a></li>
+                <li><a href="{%  url   'signin'  %}"><i class="fas fa-user-circle"></i>ورود</a></li>
+                <li><a href="{%  url   'create_post'  %}">پست جدید</a></li>
+
+
+            </ul>
+            <div class="nav-left-side">
+                <div class="search-box">
+                    <form>
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="search" placeholder="جستجو">
+                    </form>
+                </div>
+                <a href="{%  url   'signup'  %}" class="nav-left-icon" title="ایجاد حساب کاربری"><i
+                        class="fas fa-user-circle"></i></a>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <!-- main -->
+
+
+    <main>
+        <div class="container">
+            <div class="main-container">
+                <section class="cards-container" style="grid-column: span 8;
+            display: flex;
+            flex-direction: column;">
+
+
+
+                    <div class="card mb-3" style="background-color: #e6e6fa">
+                        <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title2 }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.details }}</p>
+                            <p class="card-text"><small class="text-muted">{{ post.created_date }}</small></p>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- comment and reply  -->
+
+
+                    <h2 style="text-align:center;">اضافه کردن پیام</h2>
+
+                    <div class="form-group">
+                        <form action="." method="post">
+                            {{ comment_form.as_p }}
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-info btn-lg btn-block">ارسال پیام</button>
+
+                        </form>
+                    </div>
+            </div><br>
+
+
+            <!-- Comment with nested comments -->
+            {% for comment in comments %}
+            <div class="comment" style="background-color: #e6e6fa">
+                <p class="info">{{ comment.name }} | {{ comment.created }}</p>
+                {{ comment.body|linebreaks }}
+
+                {% for replay in comment.replies.all %}
+                <p class="info">{{ replay.name }} | {{ replay.created }}</p>
+                <li>{{ replay.body }}</li>
+                {% endfor %}
+
+                <h5 style="text-align: center">ریپلای</h5>
+                <form action="." method="post">
+                    {{ comment_form.as_p }}
+                    {% csrf_token %}
+                    <!-- Hidden input for parent comment.id -->
+                    <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                    <input class="btn btn-info btn-lg btn-block" type="submit" value="ریپلای">
+
+
+                </form>
+            </div>
+            {% empty %}
+            <h4>پیامی وجود ندازد</h4>
+            {% endfor %}
+
+
+
+
+
+
+            </section>
+
+        </div>
+    </main>
+
+
+
+
+
+
+    <!-- FOOTER START -->
+
+    <div class="footer">
+        <div class="contain">
+            <div class="col social" style="margin-top:15px">
+                <img style="width: 120px; height:120px " src="{% static  'app/logoo.jpg' %}">
+
+            </div>
+            <div class="col">
+                <h3 style="color: #FF7F50">راه های ارتباطی</h3>
+                <ul>
+                    <li>اینستاگرام</li>
+                    <li>تلگرام</li>
+                    <li>واتسپ</li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3 style="color: #FF7F50">درباره ما</h3>
+                <ul>
+                    <li>کارکنان</li>
+                    <li>گزارشگران</li>
+                    <li>مدیران </li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3 style="color: #FF7F50">دسترسی سریع</h3>
+                <ul>
+                    <li>اخبار سیاسی</li>
+                    <li>اخبار ورزشی</li>
+                    <li>اخبار اقتصادی</li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</body>
+
+</html>
